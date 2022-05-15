@@ -6,6 +6,7 @@ import SignIn from './components/SignIn';
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import DailyFashion from './components/DailyFashion';
 import unsplash from './api/unsplash';
+import UserProfile from './components/UserProfile';
 function App() {
   const [pins, setNewPins] = useState([])
 
@@ -71,6 +72,7 @@ function App() {
       <Routes>
         <Route path="/" exact element={<DailyFashion pins={pins} />} />
         <Route path="/signIn" exact element={<SignIn />} />
+        <Route path="/profile" exact element={<UserProfile />} />
       </Routes>
 
     </Router >

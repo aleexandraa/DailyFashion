@@ -35,11 +35,23 @@ function SignIn({
     return (
         <Wrapper>
             <Form>
-                <Label>Enter your first name</Label>
+                <Label> First name</Label>
                 <Input
                     onChange={handlerInput}
                     type="text"
                     placeholder="Your first name"
+                />
+                <Label>Second name</Label>
+                <Input
+                    onChange={handlerInput}
+                    type="text"
+                    placeholder="Your second name"
+                />
+                <Label>Password</Label>
+                <Input
+                    onChange={handlerInput}
+                    type="password"
+                    placeholder="Password"
                 />
                 <Button onClick={handlerButton}>Submit</Button>
 
@@ -55,7 +67,10 @@ width: 100vw;
   align-items: center;
   background-size: cover;
   background-repeat: no-repeat;
-  z-index: -1;`;
+  z-index: -1;
+  background-color: pink;
+`;
+
 
 
 const Label = styled.label`
@@ -91,8 +106,9 @@ display: flex;
   align-items: center;
   justify-content: center;
   width: 400px;
-  height: 170px;
+  height: 250px;
   border-radius: 5px;
   margin-top: -40px;
+  box-shadow:10px 20px 30px red;
   `;
 export default SignIn;

@@ -20,8 +20,8 @@ function Header({ handleSelect,
 
     return (
         <Wrapper>
-            <HomePageButton>
-                <a href="/">Profile</a>
+            <HomePageButton to="/profile">
+                {location.pathname !== "/profile" && "Profile"}
             </HomePageButton>
             <FollowingButton>
                 <a href="/">Following</a>
@@ -29,20 +29,13 @@ function Header({ handleSelect,
             <SearchWrapper>
                 <form>
                     <input type="text" onChange={(ev) => console.log(ev.target.value)} />
-                    <button type="submit"></button>
+                    <button type="submit">Submit</button>
                 </form>
             </SearchWrapper>
 
-            <SignIn to="/signIn">
+            <SignInButton to="/signIn">
                 {location.pathname !== "/signIn" && "Sign in"}
-            </SignIn>
-
-            <SigninWrapper>
-                <SignIn to="#">Hello {loggedinUser}</SignIn>{" "}
-                <SignIn onClick={logOut} to="/signIn">
-                    Sign out
-                </SignIn>
-            </SigninWrapper>
+            </SignInButton>
 
 
 
@@ -88,16 +81,16 @@ const SigninWrapper = styled.div`
 
 
 
-const HomePageButton = styled(HomeButtons)`
-background-color:#FF6FB5;
+const HomePageButton = styled(Link, HomeButtons)`
+
 a {
     text-decoration: none;
     color: white;
     font-weight: 700
 }
 `
-const SignInButton = styled(HomeButtons)`
-background-color:#FF6FB5;
+const SignInButton = styled(Link, HomeButtons)`
+
 a {
     text-decoration: none;
     color: white;
