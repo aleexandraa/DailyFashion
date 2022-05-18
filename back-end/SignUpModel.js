@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+const { ObjectId } = mongoose.Schema.Types
 
 const signUpTemplate = new mongoose.Schema({
     fullName: {
@@ -20,6 +21,11 @@ const signUpTemplate = new mongoose.Schema({
     date: {
         type: Date,
         default: Date.now
+    },
+    followers: { type: Array },
+    following: { type: Array },
+    pictures: {
+        type: Array
     },
 })
 

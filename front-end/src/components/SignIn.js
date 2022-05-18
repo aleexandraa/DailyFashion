@@ -3,55 +3,77 @@ import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 
 function SignIn({
-    allUsers,
-
-
-    setLoggedinUser,
-    setUserFriends,
-    setCurrentUser,
+    setUser
 }) {
-    const [inputValue, setInputValue] = useState("");
+    const [inputValue, setInputValue] = useState({
+        fullName: "",
+        userName: "",
+        email: "",
+        password: "",
+        followers: [],
+        following: [],
+        pictures: []
+    });
     const history = useNavigate();
     const [errMessage, setErrMessage] = useState("");
 
     const handlerInput = (ev) => {
         setInputValue(ev.target.value);
     };
-
-    const handlerButton = () => {
-        for (let i = 0; i < allUsers.length; i++) {
-            if (
-                allUsers[i].name.toLowerCase().includes(inputValue.toLowerCase()) &&
-                inputValue) {
-                setLoggedinUser(allUsers[i].name);
-                setUserFriends(allUsers[i].friends);
-                setCurrentUser(allUsers[i].id);
-                history.push("/");
-            } else {
-                setErrMessage(`${inputValue} does not exist`);
-            }
-        }
+    console.log(inputValue);
+    const handlerButton = async (e) => {
+        e.preventDefault()
+        const signup = await fetch("/app/signup", {
+            method: "POST",
+            headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(inputValue),
+        });
+        const user = await signup.json()
+        setUser(user)
+        history('/profile')
     };
+
     return (
         <Wrapper>
             <Form>
-                <Label> First name</Label>
+                <Label> Full name</Label>
                 <Input
-                    onChange={handlerInput}
+                    onChange={(e) => setInputValue({
+                        ...inputValue, fullName: e.target.value
+                    })
+                    }
                     type="text"
-                    placeholder="Your first name"
+                    placeholder="Your full name"
                 />
-                <Label>Second name</Label>
+                <Label>User name</Label>
                 <Input
-                    onChange={handlerInput}
+                    onChange={(e) => setInputValue({
+                        ...inputValue, userName: e.target.value
+                    })
+                    }
                     type="text"
-                    placeholder="Your second name"
+                    placeholder="Your user name"
                 />
                 <Label>Password</Label>
                 <Input
-                    onChange={handlerInput}
+                    onChange={(e) => setInputValue({
+                        ...inputValue, password: e.target.value
+                    })
+                    }
                     type="password"
                     placeholder="Password"
+                />
+                <Label>Email</Label>
+                <Input
+                    onChange={(e) => setInputValue({
+                        ...inputValue, email: e.target.value
+                    })
+                    }
+                    type="email"
+                    placeholder="Email"
                 />
                 <Button onClick={handlerButton}>Submit</Button>
 
@@ -70,8 +92,6 @@ width: 100vw;
   z-index: -1;
   background-color: pink;
 `;
-
-
 
 const Label = styled.label`
 color: #fff;
@@ -100,7 +120,7 @@ width: 200px;
     cursor: pointer;
     background-color: #505050;
   }`;
-const Form = styled.div`
+const Form = styled.form`
 display: flex;
   flex-direction: column;
   align-items: center;
@@ -111,4 +131,13 @@ display: flex;
   margin-top: -40px;
   box-shadow:10px 20px 30px red;
   `;
+const Title = styled.div`
+width: 292px;
+height: 30px;
+margin-top: -700px;
+position: relative;
+font-family: "Franklin Gothic Medium", sans-serif;
+font-size: 20px;
+border: 3px solid transparent;
+border-radius: 5px;`
 export default SignIn;

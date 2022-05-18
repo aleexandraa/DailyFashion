@@ -7,9 +7,12 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import DailyFashion from './components/DailyFashion';
 import unsplash from './api/unsplash';
 import UserProfile from './components/UserProfile';
+import LogIn from './components/LogIn';
+import GlobalStyles from './components/GlobalStyles';
+import Following from './components/Following';
 function App() {
   const [pins, setNewPins] = useState([])
-
+  const [user, setUser] = useState([])
 
   const getImages = (term) => {
     return unsplash.get('https://api.unsplash.com/search/photos', {
@@ -41,7 +44,7 @@ function App() {
     let promises = [];
     let pinData = [];
 
-    let pins = ["fashion", "shoes", "clothes"]
+    let pins = ["fashion", "shoes", "clothes", "pants", "dress", "heels"]
 
     pins.forEach((pinTerm) => {
       promises.push(
@@ -68,11 +71,16 @@ function App() {
   return (
 
     <Router>
+      <GlobalStyles />
       <Header onSubmit={onSearchSubmit} />
       <Routes>
         <Route path="/" exact element={<DailyFashion pins={pins} />} />
-        <Route path="/signIn" exact element={<SignIn />} />
-        <Route path="/profile" exact element={<UserProfile />} />
+        <Route path="/signIn" exact element={<SignIn setUser={setUser} />} />
+        <Route exact path="/profile" element={<UserProfile user={user} setUser={setUser} />} />
+        <Route path="logIn" exact element={<LogIn setUser={setUser} />} />
+        <Route path="following" exact element={<Following setUser={setUser} />} />
+
+
       </Routes>
 
     </Router >
