@@ -16,16 +16,12 @@ function Header({ handleSelect,
     }
     const location = useLocation();
     const logOut = () => { };
-    // const [query, setQuery] = useState()
-    // const [searchQ, setSearch] = useState()
-    // const search = () => {
-    //     setSearch(query)
-    // }
 
-    // const searchData = SearchImages(query);
-    // console.log(searchData)
     return (
         <Wrapper>
+            <HomePageButton to="/">
+                {location.pathname !== "/" && "DailyFashion"}
+            </HomePageButton>
             <ProfileButton to="/profile">
                 {location.pathname !== "/profile" && "Profile"}
             </ProfileButton>
@@ -33,21 +29,16 @@ function Header({ handleSelect,
                 {location.pathname !== "/following" && "Following"}
 
             </FollowingButton>
-            <HomePageButton to="/">
-                {location.pathname !== "/" && "DailyFashion"}
-            </HomePageButton>
-            <SearchWrapper>
-                {/* <form>
-                    <input type="text" onChange={(ev) => setQuery(ev.target.value)} />
-                    <button onClick={search}>Search</button>
-                </form> */}
-            </SearchWrapper>
+
+            <SignInButton to="/users">
+                {location.pathname !== "/users" && "All Users"}
+            </SignInButton>
 
             <SignInButton to="/signIn">
-                {location.pathname !== "/signIn" && "Sign in"}
+                {location.pathname !== "/signIn" && "Sign up"}
             </SignInButton>
             <LogInButton to="/logIn">
-                {location.pathname !== "/logIn" && "LogIn"}
+                {location.pathname !== "/logIn" && "Log In"}
             </LogInButton>
 
 
@@ -63,13 +54,14 @@ function Header({ handleSelect,
 export default Header;
 
 const Wrapper = styled.div`
-display: felx;
+display: flex;
 align-item: center;
 height: 56px;
 padding: 12px 4px 4px 16px;
 background-color: white;
 color: black;
-background-color: pink
+background-color:#E75480;
+justify-content: space-evenly;
 `
 const HomeButtons = styled.div`
 display: flex;
@@ -81,17 +73,13 @@ border-radius: 24 px;
 cursor: pointer;`
 
 const LogInButton = styled(Link)`
-margin-left:100px;
-
-a{
-    text-decoration: none;
-    color: black;
-    font-weight: 700
+color: white;
+text-decoration: none;
+font-size: 20px;
+&:hover{
+    border-bottom: solid;
 }
-
-:hover {
-    background-color: #E75480;
-}`;
+`;
 
 const SigninWrapper = styled.div`
   display: flex;
@@ -100,56 +88,38 @@ const SigninWrapper = styled.div`
 
 
 const HomePageButton = styled(Link)`
-margin-left:100px;
-
-a{
-    text-decoration: none;
-    color: black;
-    font-weight: 700
-}
-
-:hover {
-    background-color: #E75480;
+color: white;
+text-decoration: none;
+font-size: 25px;
+&:hover{
+    border-bottom: solid;
 }
 `;
 const ProfileButton = styled(Link)`
-
-a{
-    text-decoration: none;
-    color: black;
-    font-weight: 700
-}
-
-:hover {
-    background-color: #E75480;
+color: white;
+text-decoration: none;
+font-size: 20px;
+&:hover{
+    border-bottom: solid;
 }
 `;
 const SignInButton = styled(Link, HomeButtons)`
 
-margin-left:100px;
-
-a{
-    text-decoration: none;
-    color: black;
-    font-weight: 700
+color: white;
+text-decoration: none;
+font-size: 20px;
+&:hover{
+    border-bottom: solid;
 }
-
-:hover {
-    background-color: #E75480;
-}
-`
+`;
 const FollowingButton = styled(Link)`
-margin-left:100px;
-
-a{
-    text-decoration: none;
-    color: black;
-    font-weight: 700
+color: white;
+text-decoration: none;
+font-size: 20px;
+&:hover{
+    border-bottom: solid;
 }
-
-:hover {
-    background-color: #E75480;
-}`
+`;
 
 const SearchWrapper = styled.div`
 width: 30vw;

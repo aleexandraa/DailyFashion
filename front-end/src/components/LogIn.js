@@ -1,9 +1,8 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-const LogIn = ({
-    user, setUser
-}) => {
+const LogIn = ({ user, setUser }) => {
+    const [password, setPassword] = useState("");
     let navigate = useNavigate();
     const [nameSignIn, setNameSignIn] = useState({
         nameSignIn: "",
@@ -15,14 +14,27 @@ const LogIn = ({
             userName: e.target.value
         });
     };
-    const handleSignIn = (e) => {
+
+    const handleSignIn = async (e) => {
         e.preventDefault();
 
-        fetch(`/app/getUser/${nameSignIn.userName}`)
-            .then((res) => res.json())
-            .then((data) => setUser(data.data))
-            .then(navigate("/"))
-
+        // fetch(`/app/getUser/${nameSignIn.userName}`)
+        //     .then((res) => res.json())
+        //     .then((data) => setUser(data.data))
+        //     .then(navigate("/"))
+        const response = await fetch(`/app/getUser/${nameSignIn.userName}`, {
+            method: "POST",
+            headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ password }),
+        })
+        const user = await response.json()
+        console.log(user)
+        setUser(user.data)
+        navigate('/')
+        console.log(response)
     };
     return (
         <>
@@ -32,6 +44,11 @@ const LogIn = ({
                         <Input onChange={handleChange} name="name"
                             type="email"
                             placeholder="Email" />
+                    </Label>
+                    <Label>Your Password
+                        <Input onChange={(e) => { setPassword(e.target.value) }} name="name"
+                            type="password"
+                            placeholder="password" />
                     </Label>
 
                     <Button onClick={handleSignIn} type="submit">
@@ -63,6 +80,8 @@ const Label = styled.label`
 color: #fff;
 margin-bottom: 10px;
 font-size: 20px;
+display:flex;
+flex-direction:column;
 `;
 const Img = styled.img`
   display: flex;
@@ -93,7 +112,7 @@ display: flex;
   box-shadow:10px 20px 30px red;`
 
 const Input = styled.input`
-width: 292px;
+width: 200px;
 height: 30px;
 font-family: "Allerta Stencil", sans-serif;
 font-size: 20px;

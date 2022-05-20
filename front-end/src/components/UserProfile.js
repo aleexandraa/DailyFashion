@@ -13,13 +13,19 @@ function UserProfile({ user, setUser }) {
         picture: ""
     })
     const getUserInfo = async () => {
-        const getUser = await fetch(`/app/getUser/${user.email}`)
+        setLoading(true)
+        const getUser = await fetch(`/app/getuserprofile/${user.userName}`)
         const info = await getUser.json()
         console.log(info)
-        setProfile(info.data)
+        if (info.status === 200) {
+            setProfile(info.data)
+            setLoading(false)
+        }
+        else {
+            console.log(info)
+        }
+
     }
-    console.log(uploadPicture)
-    console.log(user.email)
     console.log(profile)
     const uploadImage = async e => {
         const files = e.target.files
@@ -57,47 +63,41 @@ function UserProfile({ user, setUser }) {
 
     useEffect(() => {
         getUserInfo()
-    }, [upload])
-    const [numOfFollow, setNumOfFollow] = useState(0);
-    const [isFollowed, setIsFollowed] = useState(false);
-
-    const handleToggleFollow = () => {
-        if (isFollowed === false) {
-            setIsFollowed(!isFollowed);
-            setNumOfFollow(numOfFollow + 1);
-        }
-        if (isFollowed === true) {
-            setIsFollowed(!isFollowed);
-            setNumOfFollow(numOfFollow - 1);
-        }
-    };
+    }, [user])
 
     return (
         <Wrapper>
-            <Container>
+            {loading ? <Heart><div className="lds-heart"><div></div></div> </Heart> : profile &&
+                <Container>
+                    <InfoWrapper>
+                        <Label>Welcome {profile && profile.fullName}</Label>
+                        <ProfilePic src={profile.userPic} />
 
-                <Label>Welcome {user && user.fullName}</Label>
-                <StatNumber>
-                    <BoldNumber>{numOfFollow}</BoldNumber> Followers
-                </StatNumber>
+                        <StatNumber>
+                            <BoldNumber>{profile && profile.followers && profile.followers.length}</BoldNumber> Followers
+                            <BoldNumber1>{profile && profile.following && profile.following.length}</BoldNumber1> Following
 
-                <button onClick={handleToggleFollow} color="pink" size={40}>Following</button>
-                <Input type="file" name="file" placeholder="Upload an image"
-                    onChange={uploadImage} />
+                        </StatNumber>
+                    </InfoWrapper>
+                    <InputWrapper>Upload your pictures
+                        <Input type="file" name="file" placeholder="Upload an image"
+                            onChange={uploadImage} />
 
-                {
-                    loading ? (
-                        <h3>Loading...</h3>
-                    ) : (
-                        <img src={image} />
-                    )
-                }
-                <Button onClick={() => { savedImages(); setUpload(!upload) }}>Save</Button>
-                <PictureWrapper>{profile && Object.keys(profile).length > 0 && profile.pictures.map((picture) => <div>
-                    <Picture src={picture} />
-                </div>)}</PictureWrapper>
+                        {
+                            loading ? (
+                                <h3>Loading...</h3>
+                            ) : (
+                                <img src={image} />
+                            )
+                        }
+                        <Button onClick={() => { savedImages(); setUpload(!upload) }}>Save</Button>
+                    </InputWrapper>
+                    <PictureWrapper>{profile && Object.keys(profile).length > 0 && profile.pictures.map((picture) => <div>
+                        <Picture src={picture} />
+                    </div>)}</PictureWrapper>
 
-            </Container>
+                </Container>
+            }
         </Wrapper>
     )
 
@@ -112,6 +112,10 @@ width: 100vw;
 justify-content: center;
 
 `;
+const Heart = styled.div`
+position:absolute;
+left: 50%;
+top: 30%;`
 const Input = styled.input`
 align-items: center;
 color: #fff;
@@ -120,21 +124,41 @@ font-size: 20px;
 position: relative;
 margin-left: 50px;
 `
+const InfoWrapper = styled.div`
+position:absolute;
+left: 50%;
+transform: translate(-50%);
+display:flex;
+flex-direction:column;
+`
+const InputWrapper = styled.div`
+position: absolute;
+top: 35%;
+left: 50%;
+transform: translate(-50%);
+`
 const PictureWrapper = styled.div`
 background-collor:white;
 column-count: 4;
 column-gap: 10px;
 margin: 0 auto;
 max-width: 1260px;
-height: 100%;`
+position: absolute;
+top: 45%;
+left: 50%;
+transform: translate(-50%);
+`
 const Picture = styled.img`
 align-items: center;
 box-sizing:border-box;
 cursor: pointer;
 width: 236px;
-width: 100%;
 border-radius: 16px;
-object-fit: cover;`
+object-fit: cover;
+height: 200px;`
+const ProfilePic = styled.img`
+height: 200px;`
+
 const Container = styled.div`
 
 `
@@ -160,6 +184,9 @@ padding: 10px;
 const BoldNumber = styled.span`
 font-weight: bold;`;
 
+const BoldNumber1 = styled.span`
+margin-left: 15px;
+font-weight: bold;`;
 const Label = styled.label`
 color: #fff;
 margin-bottom: 10px;

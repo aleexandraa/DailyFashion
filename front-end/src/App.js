@@ -10,6 +10,9 @@ import UserProfile from './components/UserProfile';
 import LogIn from './components/LogIn';
 import GlobalStyles from './components/GlobalStyles';
 import Following from './components/Following';
+import UsersPage from './components/UsersPage';
+import UsersProfile from './components/UsersProfile';
+
 function App() {
   const [pins, setNewPins] = useState([])
   const [user, setUser] = useState([])
@@ -75,10 +78,13 @@ function App() {
       <Header onSubmit={onSearchSubmit} />
       <Routes>
         <Route path="/" exact element={<DailyFashion pins={pins} />} />
-        <Route path="/signIn" exact element={<SignIn setUser={setUser} />} />
+        <Route path="/signIn" exact element={<SignIn user={user} setUser={setUser} />} />
         <Route exact path="/profile" element={<UserProfile user={user} setUser={setUser} />} />
         <Route path="logIn" exact element={<LogIn setUser={setUser} />} />
-        <Route path="following" exact element={<Following setUser={setUser} />} />
+        <Route path="following" exact element={<Following user={user} />} />
+        <Route path="users" exact element={<UsersPage setUser={setUser} />} />
+        <Route path="users/:userName" exact element={<UsersProfile user={user} setUser={setUser} />} />
+
 
 
       </Routes>

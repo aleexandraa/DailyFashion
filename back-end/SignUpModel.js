@@ -27,6 +27,7 @@ const signUpTemplate = new mongoose.Schema({
     pictures: {
         type: Array
     },
+    userPic: { type: Array },
 })
 
 module.exports = mongoose.model('users', signUpTemplate)
