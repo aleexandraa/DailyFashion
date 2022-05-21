@@ -1,4 +1,12 @@
 # DailyFashion
+Daily Fashion is an application which can be used to post pictures with clothes design or fashion in general. It's a social application where you can follow users and see what they post to get inspired. 
+# Features:
+   ** Live search bar
+   ** Sign up
+   ** Login page
+   ** Following 
+   ** Hashed passwords for secure storage
+ 
   Feed Page:
 ![feed Page](https://user-images.githubusercontent.com/91812027/169660559-aa4e6cfc-a90c-495b-b183-3db772b22e74.png)
   All Users Page:
@@ -14,3 +22,11 @@
   User Page:
   ![user page](https://user-images.githubusercontent.com/91812027/169660643-583f27fe-7459-4fe8-aa06-491eee423c5c.png)
 
+# Tech used 
+  ** JavaScript
+  ** React
+  ** NodeJs
+  ** Express
+  ** Mongoose
+  ** MongoDB
+  ** Bcrypt
