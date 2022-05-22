@@ -30,3 +30,4 @@ Daily Fashion is an application which can be used to post pictures with clothes 
   - Mongoose
   - MongoDB
   - Bcrypt
+  - Unsplash API
