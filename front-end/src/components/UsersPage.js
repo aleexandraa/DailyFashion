@@ -7,7 +7,6 @@ const UsersPage = () => {
     const getUsers = async () => {
         const userList = await fetch('/app/getallusers')
         const list = await userList.json()
-        console.log(list)
         setUsers(list.data)
     }
     let navigate = useNavigate();

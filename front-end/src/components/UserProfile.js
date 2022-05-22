@@ -16,17 +16,14 @@ function UserProfile({ user, setUser }) {
         setLoading(true)
         const getUser = await fetch(`/app/getuserprofile/${user.userName}`)
         const info = await getUser.json()
-        console.log(info)
         if (info.status === 200) {
             setProfile(info.data)
             setLoading(false)
         }
         else {
-            console.log(info)
         }
 
     }
-    console.log(profile)
     const uploadImage = async e => {
         const files = e.target.files
         const data = new FormData()
@@ -42,13 +39,11 @@ function UserProfile({ user, setUser }) {
 
         const file = await res.json()
 
-        console.log(file)
 
         setImage(file.secure_url)
         setLoading(false)
         setUploadPicture({ ...uploadPicture, picture: file.secure_url })
     }
-    console.log(user)
     const savedImages = async () => {
         const saveImages = await fetch('/app/savepicture', {
             method: "POST",

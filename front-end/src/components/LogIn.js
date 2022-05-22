@@ -31,10 +31,8 @@ const LogIn = ({ user, setUser }) => {
             body: JSON.stringify({ password }),
         })
         const user = await response.json()
-        console.log(user)
         setUser(user.data)
         navigate('/')
-        console.log(response)
     };
     return (
         <>

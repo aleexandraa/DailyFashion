@@ -12,7 +12,6 @@ function DailyFashion(props) {
     }
 
     const searchData = SearchImages(query);
-    console.log(searchData)
     return (
         <Wrapper>
             <Container>

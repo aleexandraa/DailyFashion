@@ -11,7 +11,6 @@ const Following = ({ user }) => {
   const [followingUser, setFollowingUser] = useState([])
   const getFollowing = async () => {
     const following = user.following
-    console.log({ following })
     let followingList = []
     following.map(async (user) => {
       const getUser = await fetch(`/app/getfollower/${user}`)
@@ -22,14 +21,12 @@ const Following = ({ user }) => {
         (previous) => [...previous, userProfile.data]
       )
     })
-    console.log(followingList)
 
 
   }
   useEffect(() => {
     getFollowing()
   }, []);
-  console.log(followingUser)
 
   return (
     <Wrapper>

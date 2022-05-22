@@ -22,7 +22,6 @@ function SignIn({
     const handlerInput = (ev) => {
         setInputValue(ev.target.value);
     };
-    console.log(inputValue);
     const handlerButton = async (e) => {
         e.preventDefault()
         const signup = await fetch("/app/signup", {
@@ -71,7 +70,6 @@ function SignIn({
         const file = await res.json()
         setInputValue({ ...inputValue, userPic: file.secure_url })
     }
-    console.log(inputValue);
     return (
         <Wrapper>
             <Form>

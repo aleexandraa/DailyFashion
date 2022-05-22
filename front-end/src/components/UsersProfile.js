@@ -13,8 +13,6 @@ const UsersProfile = ({ user, setUser }) => {
     useEffect(() => {
         usersProfile()
     }, [])
-    console.log(user)
-    console.log(userProfile);
     const followUser = async () => {
         const users = { following: userProfile._id, user: user._id }
         const follow = await fetch("/app/follow", {
@@ -26,7 +24,6 @@ const UsersProfile = ({ user, setUser }) => {
             body: JSON.stringify(users),
         });
         const following = await follow.json();
-        console.log(follow)
         await usersProfile();
     }
 
@@ -42,7 +39,6 @@ const UsersProfile = ({ user, setUser }) => {
         });
         const unfollowing = await unfollow.json();
         await usersProfile();
-        console.log(unfollowing)
     }
     return (
         <Wrapper>

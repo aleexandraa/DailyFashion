@@ -51,9 +51,6 @@ router.post('/getuser/:email', async (req, res) => {
         await client.connect()
         const database = client.db("users")
         const user = await database.collection("users").findOne({ email: email })
-        // console.log(user)
-        console.log(password)
-        // console.log(typeof user.password)
         const isAuthenticated = bcrypt.compareSync(password, user.password, function (err, result) {
             if (!err) { return result }
             else {
@@ -108,7 +105,6 @@ router.patch('/follow', async (req, res) => {
             { _id: ObjectId(user) },
             { $push: { following: ObjectId(following) } }
         );
-    console.log(req.body)
     if (follow.modifiedCount !== 0) {
         const updated = await db
             .collection("users")
@@ -153,7 +149,6 @@ router.patch('/unfollow', async (req, res) => {
             { _id: ObjectId(user) },
             { $pull: { following: ObjectId(unfollowing) } }
         );
-    console.log(req.body)
     if (unfollow.modifiedCount !== 0) {
         const updated = await db
             .collection("users")
@@ -195,7 +190,6 @@ router.get('/getuserprofile/:userName', async (req, res) => {
         res.status(200).json({ status: 200, message: "User info", data: user })
     } else (res.status(400).json({ status: 400, message: "fail", data: user }))
 
-    console.log(user)
 });
 
 router.get('/getfollower/:_id', async (req, res) => {
